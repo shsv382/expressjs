@@ -1,7 +1,11 @@
 const express = require('express');
+const path = require('path');
 const friendsRouter = require('./routers/friends.router');
 
 const app = express();
+
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'hbs');
 
 const PORT = 4000;
 
@@ -13,11 +17,21 @@ app.use((req, res, next) => {
 })
 
 app.use(express.json());
-
 app.use('/friends', friendsRouter);
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
-    res.send('It works!')
+    res.render('index', {
+        title: 'Friends App',
+        caption: 'Mountains are awesome!'
+    });
+});
+
+app.get('/photo', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'img.jpg'));
+        // __dirname = D:/dev/express
+        // WINDOWS     D:\dev\express\public\img.jpg
+        // LINUX, MAC        /var/www/public/img.jpg
 });
 
 app.listen(PORT, () => {
