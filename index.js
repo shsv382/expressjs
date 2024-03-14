@@ -1,6 +1,8 @@
 const express = require('express');
 const path = require('path');
 const friendsRouter = require('./routers/friends.router');
+const messagesRouter = require('./routers/messages.router');
+const usersRouter = require('./routers/users.router');
 
 const app = express();
 
@@ -18,6 +20,8 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 app.use('/friends', friendsRouter);
+app.use('/users', usersRouter);
+app.use('/messages', messagesRouter);
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
