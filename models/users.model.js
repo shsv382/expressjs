@@ -18,9 +18,12 @@ const User = sequelize.define('user', {
         allowNull: false,
         defaultValue: "Pupkin"
     },
+    email: {type: DataTypes.STRING, unique: true},
+    phone: {type: DataTypes.INTEGER, unique: true},
+    password: {type: DataTypes.STRING},
 })
 
-User.sync()
+User.sync({ alter: true })
 
 module.exports = { 
     User 
