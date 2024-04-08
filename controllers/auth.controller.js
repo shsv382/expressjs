@@ -44,7 +44,7 @@ class AuthController {
     }
 
     async check(req, res, next) {
-        const { token } = req.body
+        const token = req.headers.authorization.split(' ')[1]
         jwt.verify(token, process.env.SECRET_JWT_KEY, function(err, decoded) {
             if (err) {
                 console.log(err)
