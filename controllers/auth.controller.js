@@ -44,8 +44,10 @@ class AuthController {
     }
 
     async check(req, res, next) {
-        const token = generateJWT(req.user.id, req.user.email)
-        return res.json({ token })
+        const { token } = req.body
+        var decoded = jwt.verify(token, process.env.SECRET_JWT_KEY);
+        console.log(decoded)
+        return res.json(decoded)
     }
 }
 
