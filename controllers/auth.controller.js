@@ -45,9 +45,14 @@ class AuthController {
 
     async check(req, res, next) {
         const { token } = req.body
-        var decoded = jwt.verify(token, process.env.SECRET_JWT_KEY);
-        console.log(decoded)
-        return res.json(decoded)
+        jwt.verify(token, process.env.SECRET_JWT_KEY, function(err, decoded) {
+            if (err) {
+                console.log(err)
+                return res.json(err)
+            }
+            console.log(decoded)
+            return res.json(decoded)
+        });
     }
 }
 
